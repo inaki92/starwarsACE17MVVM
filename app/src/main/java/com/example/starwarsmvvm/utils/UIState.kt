@@ -1,7 +1,7 @@
 package com.example.starwarsmvvm.utils
 
-sealed class UIState {
-    object LOADING : UIState()
-    data class SUCCESS<T>(val response: T): UIState()
-    data class ERROR(val error: Exception) : UIState()
+sealed class UIState<out T> {
+    object LOADING : UIState<Nothing>()
+    data class SUCCESS<T>(val response: T) : UIState<T>()
+    data class ERROR(val error: Exception) : UIState<Nothing>()
 }

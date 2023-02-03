@@ -6,7 +6,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.starwarsmvvm.databinding.ActivityMainBinding
 import com.example.starwarsmvvm.di.StarWarsApp
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy {
@@ -16,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        StarWarsApp.starWarsComponent.inject(this)
 
         val hostFragment =
             supportFragmentManager.findFragmentById(R.id.frag_container) as NavHostFragment

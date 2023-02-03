@@ -7,20 +7,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.starwarsmvvm.di.StarWarsApp
 import com.example.starwarsmvvm.viewmodel.StarWarsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 open class BaseFragment : Fragment() {
 
-    @Inject
-    lateinit var starWarsViewModelFactory: StarWarsViewModelFactory
-
     protected val starWarsViewModel: StarWarsViewModel by lazy {
-        ViewModelProvider(requireActivity(), starWarsViewModelFactory)[StarWarsViewModel::class.java]
+        ViewModelProvider(requireActivity())[StarWarsViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        StarWarsApp.starWarsComponent.inject(this)
     }
 
     protected fun showError(message: String, action: () -> Unit)  {

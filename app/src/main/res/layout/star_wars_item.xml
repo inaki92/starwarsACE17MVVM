@@ -4,23 +4,22 @@
     app:cardCornerRadius="10dp"
     android:elevation="8dp"
     android:padding="10dp"
+    android:layout_margin="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/item_name"
             android:gravity="center"
             android:text="ITEM NAME"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
-
-
 
 </androidx.cardview.widget.CardView>

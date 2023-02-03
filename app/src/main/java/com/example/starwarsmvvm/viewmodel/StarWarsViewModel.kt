@@ -10,15 +10,18 @@ import com.example.starwarsmvvm.model.domain.Planet
 import com.example.starwarsmvvm.model.domain.Starship
 import com.example.starwarsmvvm.rest.StarWarsRepository
 import com.example.starwarsmvvm.utils.UIState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class StarWarsViewModel(
+@HiltViewModel
+class StarWarsViewModel @Inject constructor(
     private val starWarsRepository: StarWarsRepository,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     init {

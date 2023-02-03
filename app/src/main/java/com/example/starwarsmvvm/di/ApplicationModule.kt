@@ -1,28 +1,26 @@
 package com.example.starwarsmvvm.di
 
-import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
 import com.example.starwarsmvvm.database.StarWarsDAO
 import com.example.starwarsmvvm.database.StarWarsDatabase
 import com.example.starwarsmvvm.database.migration_1_2
 import com.example.starwarsmvvm.rest.StarWarsRepository
-import com.example.starwarsmvvm.utils.StarWarsViewModelFactory
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 
 @Module
-class ApplicationModule(private val application: Application) {
+@InstallIn(SingletonComponent::class)
+class ApplicationModule {
 
     @Provides
-    fun providesContext(): Context =
-        application.applicationContext
-
-    @Provides
-    fun providesStarWarsDatabase(context: Context): StarWarsDatabase =
+    fun providesStarWarsDatabase(
+        @ApplicationContext context: Context
+    ): StarWarsDatabase =
         Room.databaseBuilder(
             context,
             StarWarsDatabase::class.java,
@@ -35,11 +33,4 @@ class ApplicationModule(private val application: Application) {
         starWarsDatabase: StarWarsDatabase
     ): StarWarsDAO =
         starWarsDatabase.getStarWarsDAO()
-
-    @Provides
-    fun provideViewModelFactory(
-        repository: StarWarsRepository,
-        ioDispatcher: CoroutineDispatcher
-    ): StarWarsViewModelFactory =
-        StarWarsViewModelFactory(repository, ioDispatcher)
 }

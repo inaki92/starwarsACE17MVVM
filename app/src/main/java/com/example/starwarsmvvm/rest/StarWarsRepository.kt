@@ -27,7 +27,7 @@ class StarWarsRepositoryImpl @Inject constructor(
             val response = starWarsApi.getPeople()
             if (response.isSuccessful) {
                 response.body()?.let {
-                    // todo emit success value
+                   emit(UIState.SUCCESS(it.results))
                 } ?: throw NullPeopleResponse()
             } else {
                 throw FailureResponse(response.errorBody()?.string())

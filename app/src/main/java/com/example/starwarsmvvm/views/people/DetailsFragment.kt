@@ -25,6 +25,7 @@ class DetailsFragment : BaseFragment() {
         starWarsViewModel.peopleDetails.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UIState.LOADING -> {}
+                is UIState.SUCCESS<*> -> {}
                 is UIState.ERROR -> {}
             }
         }

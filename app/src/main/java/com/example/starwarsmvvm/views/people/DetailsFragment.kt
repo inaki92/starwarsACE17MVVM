@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.starwarsmvvm.R
 import com.example.starwarsmvvm.databinding.FragmentDetailsBinding
+import com.example.starwarsmvvm.model.domain.People
 import com.example.starwarsmvvm.utils.BaseFragment
 import com.example.starwarsmvvm.utils.UIState
 
@@ -25,7 +26,7 @@ class DetailsFragment : BaseFragment() {
         starWarsViewModel.peopleDetails.observe(viewLifecycleOwner) { state ->
             when(state) {
                 is UIState.LOADING -> {}
-                is UIState.SUCCESS<*> -> {}
+                is UIState.SUCCESS<People> -> {}
                 is UIState.ERROR -> {}
             }
         }

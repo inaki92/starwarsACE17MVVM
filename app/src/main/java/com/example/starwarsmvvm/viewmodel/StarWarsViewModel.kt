@@ -4,7 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.starwarsmvvm.model.StarWarsResponse
 import com.example.starwarsmvvm.model.domain.People
+import com.example.starwarsmvvm.model.domain.Planet
+import com.example.starwarsmvvm.model.domain.Starship
 import com.example.starwarsmvvm.rest.StarWarsRepository
 import com.example.starwarsmvvm.utils.UIState
 import kotlinx.coroutines.CoroutineDispatcher
@@ -26,23 +29,23 @@ class StarWarsViewModel(
 
     var fragmentState: Boolean = false
 
-    private val _people: MutableLiveData<UIState> = MutableLiveData(UIState.LOADING)
-    val people: LiveData<UIState> get() = _people
+    private val _people: MutableLiveData<UIState<StarWarsResponse>> = MutableLiveData(UIState.LOADING)
+    val people: LiveData<UIState<StarWarsResponse>> get() = _people
 
-    private val _peopleDetails: MutableLiveData<UIState> = MutableLiveData(UIState.LOADING)
-    val peopleDetails: LiveData<UIState> get() = _peopleDetails
+    private val _peopleDetails: MutableLiveData<UIState<People>> = MutableLiveData(UIState.LOADING)
+    val peopleDetails: LiveData<UIState<People>> get() = _peopleDetails
 
-    private val _planets: MutableLiveData<UIState> = MutableLiveData(UIState.LOADING)
-    val planets: LiveData<UIState> get() = _planets
+    private val _planets: MutableLiveData<UIState<StarWarsResponse>> = MutableLiveData(UIState.LOADING)
+    val planets: LiveData<UIState<StarWarsResponse>> get() = _planets
 
-    private val _planetDetails: MutableLiveData<UIState> = MutableLiveData(UIState.LOADING)
-    val planetDetails: LiveData<UIState> get() = _planetDetails
+    private val _planetDetails: MutableLiveData<UIState<Planet>> = MutableLiveData(UIState.LOADING)
+    val planetDetails: LiveData<UIState<Planet>> get() = _planetDetails
 
-    private val _starships: MutableStateFlow<UIState> = MutableStateFlow(UIState.LOADING)
-    val starships: StateFlow<UIState> get() = _starships
+    private val _starships: MutableStateFlow<UIState<StarWarsResponse>> = MutableStateFlow(UIState.LOADING)
+    val starships: StateFlow<UIState<StarWarsResponse>> get() = _starships
 
-    private val _starshipDetails: MutableLiveData<UIState> = MutableLiveData(UIState.LOADING)
-    val starshipDetails: LiveData<UIState> get() = _starshipDetails
+    private val _starshipDetails: MutableLiveData<UIState<Starship>> = MutableLiveData(UIState.LOADING)
+    val starshipDetails: LiveData<UIState<Starship>> get() = _starshipDetails
 
     fun getPeople(id: String? = null) {
         id?.let {
@@ -86,7 +89,7 @@ class StarWarsViewModel(
         } ?: run {
             viewModelScope.launch(ioDispatcher) {
                 starWarsRepository.getStarships().collect {
-                    _starshipDetails.postValue(it)
+                    _starships.value = it
                 }
             }
         }
